@@ -20,6 +20,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -75,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.v("brad", response);
+                //Log.v("brad", response);
+                parseJSON(response);
             }
         };
         Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -85,10 +89,24 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         StringRequest request = new StringRequest(Request.Method.GET,
-                "https://bradchao.com/wp",
+                "http://data.coa.gov.tw/Service/OpenData/RuralTravelData.aspx",
                 listener,
                 errorListener);
         queue.add(request);
+    }
+
+
+    private void parseJSON(String json){
+        try{
+            JSONArray root = new JSONArray(json);
+            for (int i=0; i<root.length(); i++){
+                JSONObject row =  root.getJSONObject(i);
+                String title = row.getString("Title");
+                Log.v("brad", title);
+            }
+        }catch (Exception e){
+            Log.v("brad", e.toString());
+        }
     }
 
     public void test3(View view) {
