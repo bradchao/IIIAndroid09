@@ -20,5 +20,16 @@
         android:text="test2"
         android:onClick="test2"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test3"
+        android:onClick="test3"
+        />
 
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>
